@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'orders', canActivate: [AuthGuard], loadChildren: () => import('./orders/orders.module').then(mod => mod.OrdersModule), data: {breadcrumb: 'Orders'} },
   // tslint:disable-next-line: max-line-length
   { path: 'account', loadChildren: () => import('./account/account.module').then(mod => mod.AccountModule), data: {breadcrumb: {skip: true }} },
-  { path: 'admin', loadChildren: () => import('./app/app.module').then(mod => mod.AppModule), data: {breadcrumb: 'admin'} },
+  // { path: 'admin', loadChildren: () => import('./app/dashboard/dashboard.module').then(mod => mod.DashboardModule), data: {breadcrumb: 'admin'} },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
   
 ];
