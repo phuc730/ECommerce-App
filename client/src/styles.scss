@@ -18,3 +18,11 @@ label.xng-breadcrumb-trail {
 .StripeElement {
     height: 3.125em;
 }
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+
+// If you want to add something do it here
+@import "custom";

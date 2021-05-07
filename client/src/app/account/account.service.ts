@@ -15,11 +15,22 @@ export class AccountService {
   // We need to have something which won't emit initial value rather wait till it has something.
   // Hence for that ReplaySubject. I have given to hold one user object and it will cache this as well
   private currentUserSource = new ReplaySubject<IUser>(1);
+  private isAdminSource = new ReplaySubject<boolean>(1);
+  isAdmin$ = this.isAdminSource.asObservable();
+
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
 
-
+  isAdmin(token: string): boolean  {
+    if (token) {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      if (decodedToken.role.indexOf('Admin') > -1) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   loadCurrentUser(token: string) {
     if (token === null) {
@@ -34,6 +45,7 @@ export class AccountService {
         if (user) {
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);
+          this.isAdminSource.next(this.isAdmin(user.token));
         }
       })
     );
@@ -45,6 +57,7 @@ export class AccountService {
         if (user) {
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);
+          this.isAdminSource.next(this.isAdmin(user.token));
         }
       })
     );

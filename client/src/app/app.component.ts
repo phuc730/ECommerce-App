@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BasketService } from './basket/basket.service';
 import { AccountService } from './account/account.service';
-
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,11 +9,13 @@ import { AccountService } from './account/account.service';
 })
 export class AppComponent implements OnInit {
    title = 'My View - Store';
+   isAdmin$: Observable<boolean>;
    constructor(private basketService: BasketService, private accountService: AccountService) {}
 
    ngOnInit(): void {
     this.loadBasket();
     this.loadCurrentUser();
+    this.isAdmin$ = this.accountService.isAdmin$;
    }
 
    loadCurrentUser() {

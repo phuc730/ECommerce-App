@@ -7,4 +7,4 @@
   <!-- <h1>Welcome to {{ title }}</h1> -->
   <router-outlet></router-outlet>
 </div>
-<app-footer></app-footer>
+<app-footer *ngIf="isAdmin$ | async"></app-footer>

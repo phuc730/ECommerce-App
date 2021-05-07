@@ -8,6 +8,27 @@
     <a class="p-2" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
     <a class="p-2" routerLink="/shop" routerLinkActive="active">Store</a>
     <a class="p-2" target="_blank" href="https://github.com/rahulsahay19/eCommerce-App">GitHub</a>
+    <span class="dropdown" dropdown  *ngIf="isAdmin$ | async">
+      <a class="dropdown-toggle" style="cursor: pointer" dropdownToggle
+        >ADMIN
+      </a>
+      <div
+        class="dropdown-menu"
+        style="cursor: pointer"
+        *dropdownMenu
+      >
+      <a
+      class="dropdown-item d-flex align-items-center py-2"
+      routerLink="/admin"
+      routerLinkActive="active"
+      >Product Manager</a>
+      <a
+      class="dropdown-item d-flex align-items-center py-2"
+      routerLink="/admin-users"
+      routerLinkActive="active"
+      >User Manager</a>
+      </div>
+    </span>
     <a class="p-2" routerLink="/admin" routerLinkActive="active">Twitter</a>
     
     <!-- <a class="p-2" routerLink="/test-error" routerLinkActive="active">Test Error</a> -->
@@ -43,3 +64,4 @@
     </ng-container>
   </div>
 </div>
+
