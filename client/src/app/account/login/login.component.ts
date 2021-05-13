@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   constructor(private accountService: AccountService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || '/shop';
+    this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || '/admin';
     this.createLoginForm();
   }
 
@@ -29,7 +29,12 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     console.log(this.loginForm.value);
     this.accountService.login(this.loginForm.value).subscribe(() => {
-      this.router.navigateByUrl(this.returnUrl);
+      if(this.accountService.isAdmin$){
+        this.router.navigateByUrl(this.returnUrl);
+      }
+      else{
+        this.router.navigateByUrl('/shop');
+      }
     }, error => console.log(error));
   }
 }

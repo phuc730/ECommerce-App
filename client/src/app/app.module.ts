@@ -7,14 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
-import {HomeComponent} from './home/home.component'
 // import { NgxSpinnerModule } from 'ngx-spinner';
 // import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
-import {BaseModule} from './app/views/base/base.module';
+import { AdminComponent } from './admin/admin.component';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

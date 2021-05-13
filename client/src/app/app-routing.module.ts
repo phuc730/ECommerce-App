@@ -6,10 +6,12 @@ import { ServerErrorComponent } from './core/server-error/server-error.component
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { AdminGuard } from './core/guards/admin.guard';
-import {DashboardComponent} from './app/views/dashboard/dashboard.component';
+// import {DashboardComponent} from './app/views/dashboard/dashboard.component';
+import {AdminComponent} from './admin/admin.component'
 const routes: Routes = [
   { path: '', component: HomeComponent, data: {breadcrumb: 'Home'} },
-  { path: 'dashboard',canActivate: [AuthGuard, AdminGuard], component: DashboardComponent, data: {breadcrumb: 'DashBoard'} },
+  // { path: 'admin',canActivate: [AuthGuard, AdminGuard], component: AdminComponent, data: {breadcrumb: 'Admin'} },
+  { path: 'admin', canActivate: [AuthGuard, AdminGuard], loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule), data: {breadcrumb: 'Admin'} },
   { path: 'test-error', component: TestErrorComponent, data: {breadcrumb: 'Test Errors'} },
   { path: 'server-error', component: ServerErrorComponent, data: {breadcrumb: 'Server Error'} },
   { path: 'not-found', component: NotFoundComponent, data: {breadcrumb: 'Not Found'} },
@@ -21,8 +23,7 @@ const routes: Routes = [
   { path: 'orders', canActivate: [AuthGuard], loadChildren: () => import('./orders/orders.module').then(mod => mod.OrdersModule), data: {breadcrumb: 'Orders'} },
   // tslint:disable-next-line: max-line-length
   { path: 'account', loadChildren: () => import('./account/account.module').then(mod => mod.AccountModule), data: {breadcrumb: {skip: true }} },
-  { path: 'admin', canActivate: [AuthGuard, AdminGuard], loadChildren: () => import('./app/app.module').then(mod => mod.AppModule), data: {breadcrumb: 'admin'} }
-  // { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
+   // { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
   
 ];
 

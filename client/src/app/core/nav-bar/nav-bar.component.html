@@ -1,37 +1,16 @@
-<div class="d-flex flex-column flex-md-row align-items-center justify-content-between p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm fixed-top">
-<div class="d-flex align-center">
+<!-- User -->
+<div
+  class="d-flex flex-column flex-md-row align-items-center justify-content-between p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm fixed-top">
+  <div class="d-flex align-center">
     <img src="/assets/images/logo-2.png" style="max-height: 70px;" alt="myview" routerLink="/" class="logo" />
     <h5 class="my-0 ml-md-2 font-weight-normal">Sports Center</h5>
-</div>
-  
+  </div>
+
   <nav class="my-2 my-md-0 mr-md-3 text-uppercase" style="font-size: larger;">
     <a class="p-2" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
     <a class="p-2" routerLink="/shop" routerLinkActive="active">Store</a>
     <a class="p-2" target="_blank" href="https://github.com/rahulsahay19/eCommerce-App">GitHub</a>
-    <span class="dropdown" dropdown  *ngIf="isAdmin$ | async">
-      <a class="dropdown-toggle" style="cursor: pointer" dropdownToggle
-        >ADMIN
-      </a>
-      <div
-        class="dropdown-menu"
-        style="cursor: pointer"
-        *dropdownMenu
-      >
-      <a
-      class="dropdown-item d-flex align-items-center py-2"
-      routerLink="/admin"
-      routerLinkActive="active"
-      >Product Manager</a>
-      <a
-      class="dropdown-item d-flex align-items-center py-2"
-      routerLink="/admin-users"
-      routerLinkActive="active"
-      >User Manager</a>
-      </div>
-    </span>
-    <a class="p-2" routerLink="/admin" routerLinkActive="active">Twitter</a>
-    
-    <!-- <a class="p-2" routerLink="/test-error" routerLinkActive="active">Test Error</a> -->
+    <a class="p-2" routerLink="/admin" *ngIf="isAdmin$" routerLinkActive="active">Admin</a>
   </nav>
   <div class="d-flex align-center">
     <a routerLink="/basket" class="position-relative">
@@ -64,4 +43,78 @@
     </ng-container>
   </div>
 </div>
+<!-- admin -->
+<div
+  class="d-flex flex-column flex-md-row align-items-center justify-content-between p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm fixed-top"
+  *ngIf="isAdmin$ | async">
+  <div class="d-flex align-center">
+    <img src="/assets/images/logo-2.png" style="max-height: 70px;" alt="myview" routerLink="/" class="logo" />
+    <h5 class="my-0 ml-md-2 font-weight-normal">Sports Center</h5>
+  </div>
 
+  <nav class="my-2 my-md-0 mr-md-3 text-uppercase" style="font-size: larger;">
+      <!-- <a class="p-2" routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Admin</a> -->
+      <!-- <a class="p-2" routerLink="/admin/brand" routerLinkActive="active">Quan Ly thuong hieu</a>
+      <a class="p-2" target="_blank" href="https://github.com/rahulsahay19/eCommerce-App">GitHub</a>      -->
+      <span class="btn-group" dropdown style="margin-right: 50px;">
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+          aria-controls="dropdown-basic" style="background: #f86c6b; width: 100px;" routerLink="/admin"
+          routerLinkActive="active">
+          Admin <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" href="#">Quan ly san pham</a></li>
+          <li role="menuitem"><a class="dropdown-item" routerLink="/admin/brand" routerLinkActive="active">Quan ly
+              thuong hieu</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Quan ly loai san pham</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Quan ly tai khoan</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Thong ke doanh thu</a></li>
+        </ul>
+      </span>
+      <span style="margin-right: 50px;">
+        <button type="button" class="btn btn-brand btn-github mr-1"
+          style="margin-bottom: 0px; width: 100px; background: #f86c6b;"
+          >
+          <i class="fa fa-github"></i>
+          <span href="https://github.com/rahulsahay19/eCommerce-App">Github</span>
+        </button>
+      </span>
+      <span style="margin-right: 50px;">
+      <button type="button" class="btn btn-brand btn-flickr mr-1" style="margin-bottom: 0px; width: 100px; background: #f86c6b;">
+        <i class="fa fa-flickr"></i>
+        <span>About</span>
+      </button>
+      </span>
+  </nav>
+
+  <div class="d-flex align-center">
+    <a routerLink="/basket" class="position-relative">
+      <i class="fa fa-shopping-cart fa-2x mr-5 text-dark"></i>
+      <div *ngIf="(basket$ | async) as basket" class="cart-no">{{basket.items.length}}</div>
+    </a>
+    <ng-container *ngIf="(currentUser$ | async) === null">
+      <a routerLink="/account/login" class="btn btn-outline-secondary mr-2">Login</a>
+      <a routerLink="/account/register" class="btn btn-outline-secondary mr-3" href="#">Sign up</a>
+    </ng-container>
+
+    <ng-container *ngIf="currentUser$ | async">
+      <div class="dropdown ml-3 mr-5" dropdown>
+        <a class="dropdown-toggle" style="cursor: pointer;" dropdownToggle>
+          <strong>Welcome {{(currentUser$ | async).displayName}}</strong>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" style="cursor: pointer;" *dropdownMenu>
+          <a routerLink="/basket" class="dropdown-item d-flex align-items-center py-2">
+            <i class="fa fa-shopping-cart mr-3"></i> View Basket
+          </a>
+          <a routerLink="/orders" class="dropdown-item d-flex align-items-center py-2">
+            <i class="fa fa-history mr-3"></i> View Orders
+          </a>
+          <div class="dropdown-divider"></div>
+          <a (click)="logout()" class="dropdown-item d-flex align-items-center py-2">
+            <i class="fa fa-sign-out mr-3"></i> Sign Out
+          </a>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
