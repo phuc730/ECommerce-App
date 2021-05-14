@@ -15,6 +15,7 @@ namespace Infrastructure.Data.config
             builder.Property(p => p.Price).HasColumnType("decimal(20,2)");
             builder.Property(p => p.PictureUrl).IsRequired();
             builder.Property(p => p.Status).IsRequired();
+            builder.HasOne(p => p.Image).WithMany().HasForeignKey(p => p.ImageId);
             builder.HasOne(p => p.ProductBrand).WithMany().HasForeignKey(p=> p.ProductBrandId);
             builder.HasOne(p => p.ProductType).WithMany().HasForeignKey(p => p.ProductTypeId);
         }

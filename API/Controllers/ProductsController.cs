@@ -66,6 +66,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetProduct), new { Id = product.Id }, product);
 
         }
+
         [Cached(500)]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct(ProductToReturnDTO productDto)
@@ -110,12 +111,12 @@ namespace API.Controllers
 
         [Cached(500)]
         [HttpGet("searchBy/type={type}&&brand={brand}")]
-        public async Task<ActionResult<Pagination<ProductToReturnDTO>>> GetProductByTypeOrBrand(string type, string brand
+        public async Task<ActionResult<Pagination<ProductToReturnDTO>>> GetProductByTypeOrBrand(string type, string brand,string pictureURL
         ,[FromQuery] ProductSpecParams productParams)
         {
-            var spec = new ProductWithTypesAndBrandsSpecification(type,brand);
+            var spec = new ProductWithTypesAndBrandsSpecification(type,brand,pictureURL);
             var products = await _productsRepo.ListAsync(spec);
-            var countSpec = new ProductWithFiltersForCountSpec(type,brand);
+            var countSpec = new ProductWithFiltersForCountSpec(type,brand,pictureURL);
             var totalItems = await _productsRepo.CounAsync(countSpec);
 
             if (products == null)

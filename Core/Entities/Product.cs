@@ -10,8 +10,10 @@ namespace Core.Entities
         public int ProductTypeId { get; set; }
         public ProductBrand ProductBrand { get; set; }
         public int ProductBrandId { get; set; }
-        public string Status {get; set;}
-        public int Quantity {get; set;}
-
-    }
+        public string Status { get; set; }
+        public int Quantity { get; set; }
+        public Image Image {get; set;}
+        public int ImageId { get; set; }    
+        
+        }
 }

@@ -14,6 +14,7 @@ namespace API.Helpers
             CreateMap<Product, ProductToReturnDTO>()
                 .ForMember(d => d.ProductBrand, o=> o.MapFrom(s => s.ProductBrand.Name))
                 .ForMember(d => d.ProductType, o=> o.MapFrom(s => s.ProductType.Name))
+                .ForMember(d => d.Image, o=> o.MapFrom(s => s.Image.PictureUrl))
                 .ForMember(d => d.PictureUrl, o=> o.MapFrom<ProductUrlResolver>());
             CreateMap<ProductToReturnDTO, Product>();
             //Map Brands
@@ -28,6 +29,9 @@ namespace API.Helpers
             //Map Roles
             CreateMap<Role, RoleDTO>();
             CreateMap<RoleDTO, Role>();
+            //Map image
+            CreateMap<Image, ImageDTO>();
+            CreateMap<ImageDTO, Image>();
 
             CreateMap<Core.Entities.Identity.Address, AddressDTO>().ReverseMap();
             CreateMap<CustomerBasketDTO, CustomerBasket>();

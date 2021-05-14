@@ -16,6 +16,7 @@ namespace Core.Specifications
         {
             AddInclude(x => x.ProductType);
             AddInclude(x => x.ProductBrand);
+            AddInclude(x => x.Image);
             AddOrderBy(x => x.Name);
             ApplyPaging(productParams.PageSize * (productParams.PageIndex -1), productParams.PageSize);
 
@@ -40,15 +41,18 @@ namespace Core.Specifications
         {
             AddInclude(x => x.ProductType);
             AddInclude(x => x.ProductBrand);
+            AddInclude(x => x.Image);
         }
 
-        public ProductWithTypesAndBrandsSpecification(string typeName, string brandName) 
+        public ProductWithTypesAndBrandsSpecification(string typeName, string brandName, string pictureUrl) 
         : base(x => (x.ProductType.Name == typeName) || 
-                    (x.ProductBrand.Name == brandName)
+                    (x.ProductBrand.Name == brandName) ||
+                    (x.Image.PictureUrl == pictureUrl)
         )
         {
             AddInclude(x => x.ProductType);
             AddInclude(x => x.ProductBrand);
+             AddInclude(x => x.Image);
         }
     }
 }

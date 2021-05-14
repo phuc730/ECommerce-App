@@ -1,0 +1,108 @@
+<div class="row" style="background: white;">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                <strong>EDIT </strong>
+            </div>
+            <div class="card-body">
+                <form class="was-validated">
+                    <div class="form-group">
+                        <label class="form-col-form-label" for="inputError2">NAME</label>
+                        <input type="text" class="form-control" id="inputError2" required>
+                        <div class="valid-feedback">
+                            Input is valid.
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a valid information.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-col-form-label" for="inputError2">QUANTITY</label>
+                        <input type="text" class="form-control" id="inputError2" required>
+                        <div class="valid-feedback">
+                            Input is valid.
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a valid information.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-col-form-label" for="inputError2">PRICE</label>
+                        <input type="text" class="form-control" id="inputError2" required>
+                        <div class="valid-feedback">
+                            Input is valid.
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a valid information.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-col-form-label" for="select1">BRAND</label>
+                        <div>
+                            <select id="select1" name="select1" class="form-control">
+                                <option value="0">Please select</option>
+                                <option value="1">Option #1</option>
+                                <option value="2">Option #2</option>
+                                <option value="3">Option #3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-col-form-label" for="select1">TYPE PRODUCT</label>
+                        <div>
+                            <select id="select1" name="select1" class="form-control">
+                                <option value="0">Please select</option>
+                                <option value="1">Option #1</option>
+                                <option value="2">Option #2</option>
+                                <option value="3">Option #3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-col-form-label" for="select1">STATUS</label>
+                        <div>
+                            <select id="select1" name="select1" class="form-control">
+                                <option value="1">Option #1</option>
+                                <option value="2">Option #2</option>
+                                <option value="3">Option #3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-col-form-label" for="textarea-input">DESCRIPTION</label>
+                        <div>
+                            <textarea id="textarea-input" required name="textarea-input" rows="9" class="form-control"
+                                placeholder="Content.."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-sm btn-primary" style="margin-right: 5%;"><i
+                        class="fa fa-dot-circle-o"></i> Submit</button>
+                <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+            </div>
+        </div>
+    </div>
+    <!--/.col-->
+    <div class="col-sm-6">
+        <div class="card h-40 shadow-sm">
+            <div class="image position-relative;" style="cursor: pointer;">
+                <img [src]="url" class="img-fluid bg-light" style="width: 328px; height: 328px; margin-left: 30%;" />
+            </div>
+        </div>
+        <form #iamgeForm >
+        <div class="form-group" class="row">
+            <div class="col-md-9">
+                <!-- Chi chon duoc file image -->
+                <input type="file" #Image accept="image/*" id="file-input" name="file-input" (change)="onselectFile($event)">
+            </div>
+            <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+                <button type="button" class="btn btn-block btn-success" [disabled] = "Image.value==''" (click)="onSubmit()">
+                    Upload File
+                </button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
