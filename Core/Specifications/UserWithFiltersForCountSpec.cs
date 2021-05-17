@@ -15,7 +15,7 @@ namespace Core.Specifications
             {
                 
             }
-        public UserWithFiltersForCountSpec(string DisplayName) : base(x => (x.DisplayName == DisplayName))
+        public UserWithFiltersForCountSpec(string DisplayName, string Password) : base(x => (x.DisplayName == DisplayName))
         {
             // AddInclude(x => x.ProductType);
             // AddInclude(x => x.ProductBrand);

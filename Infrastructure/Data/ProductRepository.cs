@@ -25,7 +25,6 @@ namespace Infrastructure.Data
             return await _context.Products
             .Include(p => p.ProductBrand)
             .Include(p => p.ProductType)
-            .Include(p => p.Image)
             .FirstOrDefaultAsync(p => p.Id == id);
         }
 
@@ -34,7 +33,6 @@ namespace Infrastructure.Data
             return await _context.Products
             .Include(p => p.ProductBrand)
             .Include(p => p.ProductType)
-            .Include(p => p.Image)
             .ToListAsync();
         }
 

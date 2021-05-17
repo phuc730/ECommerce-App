@@ -4,7 +4,9 @@
         <h3 style="text-align: center;"><i class="fa fa-align-justify" style="margin-right: 10px;"></i>LIST OF PRODUCTS</h3>
       </div>
       <div class="card-header" style="border:1px solid black;">
-        <button type="button" class="btn btn-block btn-primary" style="width: 10%;">Create</button>
+        <button type="button" class="btn btn-block btn-primary" style="width: 10%;" [routerLink]="['/admin/product/product-create']">
+          Create
+        </button>
       </div>
       <div class="card-body" style="border:1px solid black;">
         <table class="table table-striped">
@@ -28,14 +30,14 @@
               <td>{{product.productType}}</td>
               <td>
                 <span class="badge badge-success">
-                  <button type="button" class="btn btn-block btn-success" routerLink="/admin/product/product-edit">
+                  <button type="button" class="btn btn-block btn-success" [routerLink]="['/admin/product/product-edit',product.id]">
                     Edit
                   </button>
                 </span>
               </td>
               <td>
                 <span class="badge badge-danger">
-                  <button type="button" class="btn btn-block btn-danger">Delete</button>
+                  <button type="button" class="btn btn-block btn-danger" (click)="deleteProduct(product.id)">Delete</button>
                 </span>
               </td>
             </tr>

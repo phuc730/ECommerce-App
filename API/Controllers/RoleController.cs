@@ -27,7 +27,6 @@ namespace API.Controllers
             _roleManager = roleManager;
         }
 
-       [Cached(500)]
         [HttpGet]
         public async Task<ActionResult<Pagination<RoleDTO>>> GetRoles(
             [FromQuery] ProductSpecParams productParams)

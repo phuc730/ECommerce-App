@@ -1,0 +1,59 @@
+<div class="card-body">
+  <form class="was-validated" #productForm="ngForm">
+    <div class="form-group">
+      <label class="form-col-form-label" for="inputError2">EMAIL</label>
+      <input  type="text" class="form-control" id="inputError2" required name="Email" [(ngModel)]="userForm.email">
+      <div class="valid-feedback">
+        Input is valid.
+      </div>
+      <div class="invalid-feedback">
+        Please provide a valid information.
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-col-form-label" for="inputError2">DISPLAY NAME</label>
+      <input type="text" class="form-control" id="inputError2" required name="DisplayName"
+        [(ngModel)]="userForm.displayName">
+      <div class="valid-feedback">
+        Input is valid.
+      </div>
+      <div class="invalid-feedback">
+        Please provide a valid information.
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-col-form-label" for="inputError2">PASSWORD</label>
+      <input type="password" class="form-control" id="inputError2" required name="Password"
+        [(ngModel)]="userForm.passWord">
+      <div class="valid-feedback">
+        Input is valid.
+      </div>
+      <div class="invalid-feedback">
+        Please provide a valid information.
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf = "typeId == 'user-edit'">
+      <label class="form-col-form-label" for="select1">ROLE CURENT</label>
+      <div>
+        <select id="select1" class="form-control">
+          <option *ngFor="let item of rolesOfUser">{{item.name}}</option>
+        </select>
+      </div>
+    </div>
+      <div class="form-group">
+        <label class="form-col-form-label" for="select1">ROLE</label>
+        <div>
+          <select id="select1" class="form-control" name="Role" [(ngModel)]="userForm.role">
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
+          </select>
+        </div>
+      </div>
+  </form>
+</div>
+<div class="card-footer">
+  <button [disabled]="productForm.value ==''" (click)="onSubmit(productForm.value)" type="submit"
+    class="btn btn-sm btn-primary" style="margin-right: 5%;"><i class="fa fa-dot-circle-o"></i> Submit</button>
+  <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+</div>

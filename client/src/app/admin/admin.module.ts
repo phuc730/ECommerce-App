@@ -5,7 +5,10 @@ import {AdminComponent} from './admin.component'
 import { SharedModule } from '../shared/shared.module';
 import {BrandModule} from './brand/brand.module'
 import {ProductModule} from './product/product.module'
+import {TypeModule} from './type/type.module'
+import {TypeComponent} from './type/type.component'
 import { from } from 'rxjs';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <== add the imports!
 @NgModule({
   declarations: [AdminComponent],
   imports: [
@@ -13,7 +16,8 @@ import { from } from 'rxjs';
     AdminRoutingModule,
     SharedModule,
     BrandModule,
-    ProductModule
+    ProductModule,
+    TypeModule
     ]
 })
 export class AdminModule { }

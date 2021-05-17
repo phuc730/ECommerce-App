@@ -10,6 +10,8 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 // import { NgxSpinnerModule } from 'ngx-spinner';
 // import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { TypeComponent } from './admin/type/type.component';
+import { UserComponent } from './admin/user/user.component';
 @NgModule({
   declarations: [
     AppComponent,

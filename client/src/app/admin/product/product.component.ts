@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { IProduct } from '../../shared/models/product';
 import { ShopParams } from '../../shared/models/ShopParams';
 import {ProductService} from './product.service'
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -36,4 +38,26 @@ onPageChanged(event: any) {
      this.getProducts(true);
   }
  }
+
+ deleteProduct(id: number) {
+  Swal.fire({
+    title: 'Do you want to really delete ?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'No'
+  }).then((result) => {
+    if (result.value) {
+      this.productService.deleteProduct(id).subscribe((response: any) => {
+        this.products.splice(this.products.findIndex(p => p.id === id), 1);
+      });
+      Swal.fire(
+        'Deleted!',
+        'Product has been deleted.',
+        'success'
+      );
+    }
+  });
+
+}
 }

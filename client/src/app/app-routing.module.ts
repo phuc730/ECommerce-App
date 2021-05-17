@@ -10,7 +10,7 @@ import { AdminGuard } from './core/guards/admin.guard';
 import {AdminComponent} from './admin/admin.component'
 const routes: Routes = [
   { path: '', component: HomeComponent, data: {breadcrumb: 'Home'} },
-  // { path: 'admin',canActivate: [AuthGuard, AdminGuard], component: AdminComponent, data: {breadcrumb: 'Admin'} },
+  { path: 'admin',canActivate: [AuthGuard, AdminGuard], component: AdminComponent, data: {breadcrumb: 'Admin'} },
   { path: 'admin', canActivate: [AuthGuard, AdminGuard], loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule), data: {breadcrumb: 'Admin'} },
   { path: 'test-error', component: TestErrorComponent, data: {breadcrumb: 'Test Errors'} },
   { path: 'server-error', component: ServerErrorComponent, data: {breadcrumb: 'Server Error'} },

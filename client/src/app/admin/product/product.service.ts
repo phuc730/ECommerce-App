@@ -70,7 +70,19 @@ export class ProductService {
   getShopParams() {
     return this.shopParams;
   }
+  getProductById(id: string){
+    return this.http.get<IProduct>(this.baseUrl + 'products/' + id);
 
+  }
+  createProduct( data: IProduct) {
+    return this.http.post(this.baseUrl + 'products', data);
+  }
+  updateProduct(id: string, data: IProduct) {
+    return this.http.put(this.baseUrl + 'products/' + id, data);
+  }
+  deleteProduct(id: number) {
+    return this.http.delete(this.baseUrl + 'products/' + id);
+  }
   postFile(fileUpload : File){
     const endpoint = this.baseUrl + 'image';
     const formData = new FormData();

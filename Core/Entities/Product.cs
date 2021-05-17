@@ -12,8 +12,7 @@ namespace Core.Entities
         public int ProductBrandId { get; set; }
         public string Status { get; set; }
         public int Quantity { get; set; }
-        public Image Image {get; set;}
-        public int ImageId { get; set; }    
+
         
         }
 }

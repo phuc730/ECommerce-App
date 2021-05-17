@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { ShopParams } from '../shared/models/ShopParams';
 import { IProduct } from '../shared/models/product';
 import { of } from 'rxjs';
+import { IImage } from '../shared/models/image';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class ShopService {
   products: IProduct[] = [];
   brands: IBrand[] = [];
   types: IType[] = [];
+  images: IImage[] = [];
   pagination = new Pagination();
   shopParams = new ShopParams();
 
@@ -110,6 +112,19 @@ export class ShopService {
       map((response) => {
         // Filled types
         this.types = response;
+        return response;
+      })
+    );
+  }
+
+  getImage(){
+    if (this.images.length > 0) {
+      return of(this.images);
+    }
+    return this.http.get<IImage[]>(this.baseUrl + 'image').pipe(
+      map((response) => {
+        // Filled types
+        this.images = response;
         return response;
       })
     );

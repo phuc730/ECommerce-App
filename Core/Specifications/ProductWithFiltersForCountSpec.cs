@@ -16,13 +16,11 @@ namespace Core.Specifications
             }
         public ProductWithFiltersForCountSpec(string typeName, string brandName,string picurl) 
         : base(x => (x.ProductType.Name == typeName) || 
-                    (x.ProductBrand.Name == brandName ) || 
-                     (x.Image.PictureUrl == picurl )
+                    (x.ProductBrand.Name == brandName )
                     )
         {
             AddInclude(x => x.ProductType);
             AddInclude(x => x.ProductBrand);
-             AddInclude(x => x.Image);
         }
             
     }

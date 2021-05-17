@@ -30,7 +30,6 @@ namespace API.Controllers
             _productBrandRepo = productBrandRepo;
             _productsRepo = productsRepo;
         }
-        [Cached(500)]
         [HttpGet]
         public async Task<ActionResult<Pagination<ProductToReturnDTO>>> GetProducts(
             [FromQuery] ProductSpecParams productParams)
@@ -44,7 +43,6 @@ namespace API.Controllers
             return Ok(new Pagination<ProductToReturnDTO>(productParams.PageIndex, productParams.PageSize, totalItems, data));
         }
 
-        [Cached(500)]
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductToReturnDTO>> GetProduct(int id)
         {
@@ -56,18 +54,16 @@ namespace API.Controllers
             return _mapper.Map<Product, ProductToReturnDTO>(product);
         }
 
-        [Cached(500)]
         [HttpPost]
         public async Task<ActionResult<ProductToReturnDTO>> CreateProduct(ProductToReturnDTO productToReturnDTO)
         {
             var product = _mapper.Map<ProductToReturnDTO, Product>(productToReturnDTO);
             _unitOfWork.Repository<Product>().AddProduct(product);
             await _unitOfWork.Complete();
-            return CreatedAtAction(nameof(GetProduct), new { Id = product.Id }, product);
-
+            // return CreatedAtAction(nameof(GetProduct), new { Id = product.Id }, product);
+            return Ok(product);
         }
 
-        [Cached(500)]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct(ProductToReturnDTO productDto)
         {
@@ -94,7 +90,6 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [Cached(500)]
         [HttpGet("brands")]
         public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands(
             [FromQuery] ProductSpecParams productParams)
@@ -102,14 +97,12 @@ namespace API.Controllers
             return Ok(await _productBrandRepo.ListAllAsync());
         }
 
-        [Cached(500)]
         [HttpGet("types")]
         public async Task<ActionResult<IReadOnlyList<ProductType>>> GetProductTypes()
         {
             return Ok(await _productTypeRepo.ListAllAsync());
         }
 
-        [Cached(500)]
         [HttpGet("searchBy/type={type}&&brand={brand}")]
         public async Task<ActionResult<Pagination<ProductToReturnDTO>>> GetProductByTypeOrBrand(string type, string brand,string pictureURL
         ,[FromQuery] ProductSpecParams productParams)

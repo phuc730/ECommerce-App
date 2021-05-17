@@ -2,24 +2,39 @@
 <div
   class="d-flex flex-column flex-md-row align-items-center justify-content-between p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm fixed-top">
   <div class="d-flex align-center">
-    <img src="/assets/images/logo-2.png" style="max-height: 70px;" alt="myview" routerLink="/" class="logo" />
-    <h5 class="my-0 ml-md-2 font-weight-normal">Sports Center</h5>
+    <h3 class="my-0 ml-md-2 font-weight-normal">Computer Center</h3>
   </div>
 
   <nav class="my-2 my-md-0 mr-md-3 text-uppercase" style="font-size: larger;">
-    <a class="p-2" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-    <a class="p-2" routerLink="/shop" routerLinkActive="active">Store</a>
-    <a class="p-2" target="_blank" href="https://github.com/rahulsahay19/eCommerce-App">GitHub</a>
-    <a class="p-2" routerLink="/admin" *ngIf="isAdmin$" routerLinkActive="active">Admin</a>
+    <span style="margin-right: 50px;">
+      <a routerLink="/" class="btn btn-brand btn-github mr-1"
+        style="margin-bottom: 0px; width: 100px; background: #f86c6b;">
+        <span style="color: white;">Home</span>
+      </a>
+    </span>
+    <span style="margin-right: 50px;">
+      <a class="btn btn-brand btn-github mr-1" style="margin-bottom: 0px; width: 100px; background: #f86c6b;"
+        routerLink="/shop">
+        <span style="color: white;">Store</span>
+      </a>
+    </span>
+    <span style="margin-right: 50px;">
+      <a type="button" class="btn btn-brand btn-github mr-1"
+        style="margin-bottom: 0px; width: 100px; background: #f86c6b;" routerLinkActive="active"
+        href="https://github.com/phuc730/ECommerce-App">
+        <i class="fa fa-github" style="color: white;"></i>
+        <span style="color: white;">Github</span>
+    </a>
+    </span>
   </nav>
   <div class="d-flex align-center">
     <a routerLink="/basket" class="position-relative">
-      <i class="fa fa-shopping-cart fa-2x mr-5 text-dark"></i>
+      <i class="fa fa-shopping-cart fa-2x mr-5 text-tomato" style="color: #f86c6b;"></i>
       <div *ngIf="(basket$ | async) as basket" class="cart-no">{{basket.items.length}}</div>
     </a>
     <ng-container *ngIf="(currentUser$ | async) === null">
-      <a routerLink="/account/login" class="btn btn-outline-secondary mr-2">Login</a>
-      <a routerLink="/account/register" class="btn btn-outline-secondary mr-3" href="#">Sign up</a>
+      <a routerLink="/account/login" class="btn btn-outline-secondary mr-2" style="background: #f86c6b; color: white;">Login</a>
+      <a routerLink="/account/register" class="btn btn-outline-secondary mr-3" href="#" style="background: #f86c6b; color: white;">Sign up</a>
     </ng-container>
 
     <ng-container *ngIf="currentUser$ | async">
@@ -48,42 +63,40 @@
   class="d-flex flex-column flex-md-row align-items-center justify-content-between p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm fixed-top"
   *ngIf="isAdmin$ | async">
   <div class="d-flex align-center">
-    <img src="/assets/images/logo-2.png" style="max-height: 70px;" alt="myview" routerLink="/" class="logo" />
-    <h5 class="my-0 ml-md-2 font-weight-normal">Sports Center</h5>
+    <h5 class="my-0 ml-md-2 font-weight-normal">Computer Center</h5>
   </div>
 
   <nav class="my-2 my-md-0 mr-md-3 text-uppercase" style="font-size: larger;">
-      <!-- <a class="p-2" routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Admin</a> -->
-      <!-- <a class="p-2" routerLink="/admin/brand" routerLinkActive="active">Quan Ly thuong hieu</a>
+    <!-- <a class="p-2" routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Admin</a> -->
+    <!-- <a class="p-2" routerLink="/admin/brand" routerLinkActive="active">Quan Ly thuong hieu</a>
       <a class="p-2" target="_blank" href="https://github.com/rahulsahay19/eCommerce-App">GitHub</a>      -->
-      <span class="btn-group" dropdown style="margin-right: 50px;">
-        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-          aria-controls="dropdown-basic" style="background: #f86c6b; width: 100px;" routerLink="/admin"
-          routerLinkActive="active">
-          Admin <span class="caret"></span>
-        </button>
-        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-          <li role="menuitem"><a class="dropdown-item" routerLink="/admin/product" routerLinkActive="active">Product</a></li>
-          <li role="menuitem"><a class="dropdown-item" routerLink="/admin/brand" routerLinkActive="active">Brand</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#">Type Product</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#">USER</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#">Thong ke doanh thu</a></li>
-        </ul>
-      </span>
-      <span style="margin-right: 50px;">
-        <button type="button" class="btn btn-brand btn-github mr-1"
-          style="margin-bottom: 0px; width: 100px; background: #f86c6b;"
-          >
-          <i class="fa fa-github"></i>
-          <span href="https://github.com/rahulsahay19/eCommerce-App">Github</span>
-        </button>
-      </span>
-      <span style="margin-right: 50px;">
-      <button type="button" class="btn btn-brand btn-flickr mr-1" style="margin-bottom: 0px; width: 100px; background: #f86c6b;">
+    <span class="btn-group" dropdown style="margin-right: 50px;">
+      <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+        aria-controls="dropdown-basic" style="background: #f86c6b; width: 100px;" routerLink="/admin/product"
+        routerLinkActive="active">
+        Admin <span class="caret"></span>
+      </button>
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+        <li role="menuitem"><a class="dropdown-item" routerLink="/admin/product">Product</a></li>
+        <li role="menuitem"><a class="dropdown-item" routerLink="/admin/brand">Brand</a></li>
+        <li role="menuitem"><a class="dropdown-item" routerLink="/admin/type">Type Product</a></li>
+        <li role="menuitem"><a class="dropdown-item" routerLink="/admin/user">USER</a></li>
+      </ul>
+    </span>
+    <span style="margin-right: 50px;">
+      <button type="button" class="btn btn-brand btn-github mr-1"
+        style="margin-bottom: 0px; width: 100px; background: #f86c6b;">
+        <i class="fa fa-github"></i>
+        <span><a href="https://github.com/phuc730/ECommerce-App"></a>Github</span>
+      </button>
+    </span>
+    <span style="margin-right: 50px;">
+      <button type="button" class="btn btn-brand btn-flickr mr-1"
+        style="margin-bottom: 0px; width: 100px; background: #f86c6b;">
         <i class="fa fa-flickr"></i>
         <span>About</span>
       </button>
-      </span>
+    </span>
   </nav>
 
   <div class="d-flex align-center">

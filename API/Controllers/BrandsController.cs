@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using API.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -30,7 +31,6 @@ namespace API.Controllers
             _productsRepo = productsRepo;
         }
 
-        [Cached(500)]
         [HttpGet]
         public async Task<ActionResult<Pagination<ProductBrandDTO>>> GetProductBrands(
             [FromQuery] ProductSpecParams productParams)
@@ -43,7 +43,6 @@ namespace API.Controllers
             return Ok(new Pagination<ProductBrandDTO>(productParams.PageIndex, productParams.PageSize, totalItems, data));
         }
 
-        [Cached(500)]
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductBrandDTO>> GetProductBrand(int id)
         {
@@ -54,8 +53,9 @@ namespace API.Controllers
             return _mapper.Map<ProductBrand, ProductBrandDTO>(productBrand);
         }
 
-        [Cached(500)]
+
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ProductBrandDTO>> CreateProductBrand(ProductBrandDTO productBrandDTO)
         {
             var productBrand = _mapper.Map<ProductBrandDTO, ProductBrand>(productBrandDTO);
@@ -65,14 +65,11 @@ namespace API.Controllers
 
         }
 
-        [Cached(500)]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProductBrand(ProductBrandDTO productBrandDTO)
         {
             var productBrand = await _unitOfWork.Repository<ProductBrand>().GetByIdAsync(productBrandDTO.Id);
-
             if (productBrand == null) return NotFound(new APIResponse(404));
-
             _mapper.Map<ProductBrandDTO, ProductBrand>(productBrandDTO, productBrand);
             _unitOfWork.Repository<ProductBrand>().Update(productBrand);
             await _unitOfWork.Complete();
@@ -92,7 +89,6 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [Cached(500)]
         [HttpGet("searchBy/name={brandName}")]
         public async Task<ActionResult<Pagination<ProductBrandDTO>>> GetProductBrandByName(string brandName
         ,[FromQuery] ProductSpecParams productParams)

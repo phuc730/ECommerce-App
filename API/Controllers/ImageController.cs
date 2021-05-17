@@ -70,7 +70,7 @@ namespace API.Controllers
                  
                 // dbContext.Add(employee);
                 // await dbContext.SaveChangesAsync();
-                // return RedirectToAction(nameof(Index));
+                 //return RedirectToAction(nameof(GetImage));
             return CreatedAtAction(nameof(GetImage), new { Id = image.Id }, image);
 
             }
@@ -81,14 +81,14 @@ namespace API.Controllers
         {
             string uniqueFileName = null;
 
-            if (imageDTO.PictureUrl != null)
+            if ( imageDTO.PictureUrl != null)
             {
                 string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "assets/images");
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + imageDTO.PictureUrl;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    // imageDTO.profileImage.CopyTo(fileStream);
+                    imageDTO.profileImage.CopyTo(fileStream);
                 }
             }
             return uniqueFileName;

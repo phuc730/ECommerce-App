@@ -13,11 +13,14 @@ using Microsoft.AspNetCore.Mvc;
 using API.Helpers;
 using Core.Specifications;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 namespace API.Controllers
 {
     public class AccountController : BaseAPIController
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<Role> _roleManager;
+
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
@@ -27,6 +30,7 @@ namespace API.Controllers
             _tokenService = tokenService;
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         [Authorize]
@@ -116,7 +120,7 @@ namespace API.Controllers
             };
             var result = await _userManager.CreateAsync(user, registerDto.Password);
             if(result.Succeeded){
-                await _userManager.AddToRoleAsync(user,role:"Khach");
+                await _userManager.AddToRoleAsync(user,role:"User");
             }
             if (!result.Succeeded) return BadRequest(new APIResponse(400));
             return new UserDto
@@ -128,7 +132,6 @@ namespace API.Controllers
 
         }
 
-        [Cached(500)]
         [HttpGet("user")]
         public async Task<ActionResult<Pagination<UserDto>>> GetUsers(
             [FromQuery] ProductSpecParams productParams)
@@ -142,6 +145,17 @@ namespace API.Controllers
 
             var data = _mapper.Map<IReadOnlyList<AppUser>, IReadOnlyList<UserDto>>(users);
             return Ok(new Pagination<UserDto>(productParams.PageIndex, productParams.PageSize, totalItems, data));
+        }
+        //  [Authorize]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserDto>> GetUser(string id)
+        {
+
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == id);
+            if (user == null) return NotFound(new APIResponse(404));
+
+            return _mapper.Map<AppUser, UserDto>(user);
+
         }
 
         [HttpPost("createUser")]
@@ -159,7 +173,7 @@ namespace API.Controllers
             };
             var result = await _userManager.CreateAsync(user, userDto.Password);
             if(result.Succeeded){
-                await _userManager.AddToRolesAsync(user,userDto.role);
+                await _userManager.AddToRoleAsync(user,userDto.role);
             }
             if (!result.Succeeded) return BadRequest(new APIResponse(400));
             return new UserDto
@@ -167,7 +181,6 @@ namespace API.Controllers
                 DisplayName = userDto.DisplayName,
                 Token =await _tokenService.CreateToken(user),
                 Email = userDto.Email,
-                role = userDto.role
             };
 
         }
@@ -178,10 +191,24 @@ namespace API.Controllers
             var user= await _userManager.FindByEmailAsync(userDto.Email);
             _mapper.Map<UserDto, AppUser>(userDto, user);
             var result = await _userManager.UpdateAsync(user);
-
             if (result.Succeeded) return Ok(_mapper.Map<AppUser, UserDto>(user));
 
             return BadRequest(new APIResponse(400));
+        }
+        // [Authorize]
+        [HttpGet("{id}/roles")]
+        public async Task<ActionResult<IList<string>>> GetUserAndRoles(string id)
+        {
+
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == id);
+            if (user == null) return NotFound(new APIResponse(404));
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            var roleIds = _roleManager.Roles.Where(r => userRoles.AsEnumerable().Contains(r.Name)).ToList();
+            if (userRoles == null) return NotFound(new APIResponse(404));
+
+            return Ok(roleIds);
+
         }
 
         [HttpDelete("{mail}")]
@@ -195,4 +222,6 @@ namespace API.Controllers
             return NoContent();
         }
     }
+
+    
 }

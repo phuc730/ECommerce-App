@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using API.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -30,7 +31,6 @@ namespace API.Controllers
             _productsRepo = productsRepo;
         }
 
-        [Cached(500)]
         [HttpGet]
         public async Task<ActionResult<Pagination<ProductTypeDTO>>> GetProductTypes(
             [FromQuery] ProductSpecParams productParams)
@@ -43,7 +43,6 @@ namespace API.Controllers
             return Ok(new Pagination<ProductTypeDTO>(productParams.PageIndex, productParams.PageSize, totalItems, data));
         }
 
-        [Cached(500)]
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductTypeDTO>> GetProductType(int id)
         {
@@ -54,7 +53,6 @@ namespace API.Controllers
             return _mapper.Map<ProductType, ProductTypeDTO>(productType);
         }
 
-        [Cached(500)]
         [HttpPost]
         public async Task<ActionResult<ProductTypeDTO>> CreateProductType(ProductTypeDTO productTypeDTO)
         {
@@ -64,13 +62,10 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetProductType), new { Id = productType.Id }, productType);
 
         }
-
-        [Cached(500)]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProductType(ProductTypeDTO productTypeDTO)
         {
             var productType = await _unitOfWork.Repository<ProductType>().GetByIdAsync(productTypeDTO.Id);
-
             if (productType == null) return NotFound(new APIResponse(404));
 
             _mapper.Map<ProductTypeDTO, ProductType>(productTypeDTO, productType);
@@ -92,7 +87,6 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [Cached(500)]
         [HttpGet("searchBy/name={typeName}")]
         public async Task<ActionResult<Pagination<ProductTypeDTO>>> GetProductTypeByName(string typeName
         ,[FromQuery] ProductSpecParams productParams)
