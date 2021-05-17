@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {IType} from 'src/app/shared/models/productType'
 import {IBrand} from 'src/app/shared/models/brand';
-import {IImage} from 'src/app/shared/models/image'
 import {ShopService} from '../../../shop/shop.service'
 @Component({
   selector: 'app-product-form',
@@ -20,18 +19,19 @@ export class ProductFormComponent implements OnInit {
   products: IProduct[] ;
   brands: IBrand[];
   types: IType[];
-  images: IImage[];
-  url = "https://localhost:5001/images/products/adidas_football-1.png";
-  pictureUrl : String;
+  public url : string = "https://localhost:5001/images/products/Acer2.png";
   public typeId : number =parseInt(this.route.snapshot.paramMap.get('id')) ;
+  public t:string =this.route.snapshot.url[0].path
   constructor(private route: ActivatedRoute, private productService: ProductService,
-    private router: Router, private toastr: ToastrService, private shopService: ShopService) { }
+    private router: Router, private toastr: ToastrService, private shopService: ShopService) {
+      this.url = "https://localhost:5001/images/products/Acer2.png";
+     }
 
   ngOnInit(): void {
     this.getBrands();
     this.getTypes();
-    this.getImages();
     this.getProducts();
+   
   }
 
   onSubmit(data: ProductFormVa) {
@@ -77,14 +77,6 @@ export class ProductFormComponent implements OnInit {
   getProducts() {
     return this.shopService.getProducts(true).subscribe(res => {
       this.products = res.data;
-    }, error => {
-      console.log(error);
-  });;
-  }
-
-  getImages() {
-    return this.shopService.getImage().subscribe(res => {
-      this.images = res;
     }, error => {
       console.log(error);
   });;

@@ -12,12 +12,12 @@ export class AppComponent implements OnInit {
    title = 'My View - Store';
    isAdmin$: Observable<boolean>;
    constructor(private basketService: BasketService, private accountService: AccountService) {}
-   isUser$: Observable<boolean>;
+  //  isUser$: Observable<boolean>;
    ngOnInit(): void {
     this.loadBasket();
     this.loadCurrentUser();
     this.isAdmin$ = this.accountService.isAdmin$;
-    this.isUser$ = this.accountService.isUser$;
+    // this.isUser$ = this.accountService.isUser$;
    }
 
    loadCurrentUser() {

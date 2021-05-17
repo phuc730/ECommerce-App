@@ -30,9 +30,6 @@ namespace API.Helpers
             CreateMap<Role, RoleDTO>();
             CreateMap<RoleDTO, Role>();
             //Map image
-            CreateMap<Image, ImageDTO>();
-            CreateMap<ImageDTO, Image>();
-
             CreateMap<Core.Entities.Identity.Address, AddressDTO>().ReverseMap();
             CreateMap<CustomerBasketDTO, CustomerBasket>();
             CreateMap<BasketItemDTO, BasketItem>();

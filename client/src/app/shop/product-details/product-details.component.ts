@@ -24,6 +24,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addItemToCart() {
+    console.log(this.product);
     this.basketService.addItemToBasket(this.product, this.quantity);
   }
 

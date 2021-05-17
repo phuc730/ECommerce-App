@@ -16,9 +16,9 @@ export class AccountService {
   // Hence for that ReplaySubject. I have given to hold one user object and it will cache this as well
   private currentUserSource = new ReplaySubject<IUser>(1);
   private isAdminSource = new ReplaySubject<boolean>(1);
-  private isUserSource = new ReplaySubject<boolean>(1);
+  // private isUserSource = new ReplaySubject<boolean>(1);
   isAdmin$ = this.isAdminSource.asObservable();
-  isUser$ = this.isUserSource.asObservable();
+  // isUser$ = this.isUserSource.asObservable();
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -33,15 +33,15 @@ export class AccountService {
     return false;
   }
 
-  isUser(token: string): boolean  {
-    if (token) {
-      const decodedToken = JSON.parse(atob(token.split('.')[1]));
-      if (decodedToken.role.indexOf('User') > -1) {
-        return true;
-      }
-    }
-    return false;
-  }
+  // isUser(token: string): boolean  {
+  //   if (token) {
+  //     const decodedToken = JSON.parse(atob(token.split('.')[1]));
+  //     if (decodedToken.role.indexOf('User') > -1) {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // }
 
   loadCurrentUser(token: string) {
     if (token === null) {
@@ -69,7 +69,7 @@ export class AccountService {
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);
           this.isAdminSource.next(this.isAdmin(user.token));
-          this.isUserSource.next(this.isUser(user.token))
+          // this.isUserSource.next(this.isUser(user.token))
         }
       })
     );

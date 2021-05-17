@@ -10,7 +10,6 @@ export interface IProduct {
     status: string;
     productTypeId: number;
     productBrandId: number;
-    imageId: number;
   }
 
   export class ProductFormVa implements IProduct {
@@ -24,8 +23,7 @@ export interface IProduct {
     quantity: 0;
     status= '';
     productTypeId: 0;
-    productBrandId: 0;
-    imageId: 0;  
+    productBrandId: 0;  
     constructor(init?: ProductFormVa) {
       Object.assign(this, init);
     }
