@@ -19,12 +19,12 @@ export class ProductFormComponent implements OnInit {
   products: IProduct[] ;
   brands: IBrand[];
   types: IType[];
-  public url : string = "https://localhost:5001/images/products/Acer2.png";
+  public url : string = "";
   public typeId : number =parseInt(this.route.snapshot.paramMap.get('id')) ;
   public t:string =this.route.snapshot.url[0].path
   constructor(private route: ActivatedRoute, private productService: ProductService,
     private router: Router, private toastr: ToastrService, private shopService: ShopService) {
-      this.url = "https://localhost:5001/images/products/Acer2.png";
+      this.url = "";
      }
 
   ngOnInit(): void {

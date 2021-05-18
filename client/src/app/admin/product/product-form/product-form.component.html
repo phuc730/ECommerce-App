@@ -2,7 +2,7 @@
     <form class="was-validated" #itemForm="ngForm" style="width: 45%; margin-left: 45px;">
         <div class="col-lg-12">
             <input type="hidden" name="id" [value]="typeId" [(ngModel)]="productForm.id" />
-            <input type="text" name="pictureUrl"  [(ngModel)]="productForm.pictureUrl"/>
+            <input type="hidden" name="pictureUrl" value="s" [(ngModel)]="productForm.pictureUrl"/>
             <div class="form-group">
                 <label class="form-col-form-label" for="inputError2">NAME</label>
                 <input type="text" class="form-control" id="inputError2" required name="name"
@@ -97,7 +97,7 @@
             <div class="image position-relative;" style="cursor: pointer;">
                 <img [src]="productForm.pictureUrl" class="img-fluid bg-light"
                     style="width: 328px; height: 328px; margin-left: 30%;" *ngIf="productForm.id != null"/>
-                <img [src]="" class="img-fluid bg-light"
+                <img [src]="this.url" class="img-fluid bg-light"
                     style="width: 328px; height: 328px; margin-left: 30%;" *ngIf="productForm.id == null"/>
             </div>
         </div>
